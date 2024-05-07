@@ -23,7 +23,7 @@ def get_credentials():
     return creds
 
 # Initialize the Google Translate API client with credentials
-translator = translate.Client(credentials=get_credentials())
+# translator = translate.Client(credentials=get_credentials())
 
 
 # Initialize the Google Translate API client
