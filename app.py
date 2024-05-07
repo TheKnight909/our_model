@@ -135,11 +135,11 @@ def main():
                 openai_result = classify_emotion_openai(user_input)
                 gemini_result = classify_emotion_gemini(user_input)
                 bert_result = classify_emotion_bert(user_input) 
-                translated_emotion_result = analyze_text_emotion(user_input) 
+                # translated_emotion_result = analyze_text_emotion(user_input) 
             st.write(f"**GPT Classified Emotion:** {openai_result}")
             st.write(f"**Gemini Classified Emotion:** {gemini_result}")
             st.write(f"**Our Finetuned MarBERT Classified Emotion:** {bert_result}") 
-            st.write(f"**English-Distilroberta Classified Emotion:** {translated_emotion_result}")
+            # st.write(f"**English-Distilroberta Classified Emotion:** {translated_emotion_result}")
         else:
             st.error("Please enter some text to analyze.")
 
