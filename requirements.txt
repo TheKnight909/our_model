@@ -5,4 +5,4 @@ google-auth
 torch
 transformers
 requests
-
+google.generativeai
