@@ -33,6 +33,7 @@ translator = translate.Client()
 new_tokenizer = AutoTokenizer.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
 new_model = AutoModelForSequenceClassification.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
 
+@st.cache
 def analyze_text_emotion(text, target_language="en"):
     """Translate the text to English and analyze the emotion of the translated text."""
     translation = translator.translate(text, target_language=target_language)
@@ -63,19 +64,21 @@ API_KEY = google_api_key
 
 
 # Load the tokenizer globally (not cached)
-tokenizer = AutoTokenizer.from_pretrained("TheKnight115/Finetuned_MarBERT_Arabic_Emotional_Analysis")
+
 # tokenizer = AutoTokenizer.from_pretrained(st.secrets["model_paths"]["tokenizer"])
 
 # Use st.cache_resource to cache the model loading
 @st.cache_resource
 def get_model():
     model = AutoModelForSequenceClassification.from_pretrained("TheKnight115/Finetuned_MarBERT_Arabic_Emotional_Analysis")
+    tokenizer = AutoTokenizer.from_pretrained("TheKnight115/Finetuned_MarBERT_Arabic_Emotional_Analysis")
     # model = AutoModelForSequenceClassification.from_pretrained(st.secrets["model_paths"]["model"])
     model.eval()  # Set the model to evaluation mode
     return model
 
 model = get_model()  # Load model when script runs
 
+@st.cache
 def classify_emotion_bert(text):
     # Generate inputs from the text
     inputs = tokenizer(text, return_tensors="pt", max_length=512, truncation=True, padding="max_length")
@@ -89,7 +92,7 @@ def classify_emotion_bert(text):
     predicted_emotion = labels[predicted_class.item()]
     return f"{predicted_emotion} ({max_prob_percentage:.2f}%)"
 
-
+@st.cache
 def classify_emotion_openai(text):
     try:
         stream = client.chat.completions.create(
@@ -108,6 +111,7 @@ def classify_emotion_openai(text):
     except Exception as e:
         return f"An error occurred: {e}"
 
+@st.cache
 def classify_emotion_gemini(text):
     genai.configure(api_key=API_KEY)
     generation_config = {
