@@ -64,13 +64,13 @@ API_KEY = google_api_key
 
 
 # Load the tokenizer globally (not cached)
+tokenizer = AutoTokenizer.from_pretrained("TheKnight115/Finetuned_MarBERT_Arabic_Emotional_Analysis")
 # tokenizer = AutoTokenizer.from_pretrained(st.secrets["model_paths"]["tokenizer"])
 
 # Use st.cache_resource to cache the model loading
 @st.cache_resource
 def get_model():
     model = AutoModelForSequenceClassification.from_pretrained("TheKnight115/Finetuned_MarBERT_Arabic_Emotional_Analysis")
-    tokenizer = AutoTokenizer.from_pretrained("TheKnight115/Finetuned_MarBERT_Arabic_Emotional_Analysis")
     # model = AutoModelForSequenceClassification.from_pretrained(st.secrets["model_paths"]["model"])
     model.eval()  # Set the model to evaluation mode
     return model
