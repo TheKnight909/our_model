@@ -33,7 +33,7 @@ translator = translate.Client()
 new_tokenizer = AutoTokenizer.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
 new_model = AutoModelForSequenceClassification.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
 
-@st.cache
+@st.cache_data
 def analyze_text_emotion(text, target_language="en"):
     """Translate the text to English and analyze the emotion of the translated text."""
     translation = translator.translate(text, target_language=target_language)
@@ -77,7 +77,7 @@ def get_model():
 
 model = get_model()  # Load model when script runs
 
-@st.cache
+@st.cache_data
 def classify_emotion_bert(text):
     # Generate inputs from the text
     inputs = tokenizer(text, return_tensors="pt", max_length=512, truncation=True, padding="max_length")
@@ -91,7 +91,7 @@ def classify_emotion_bert(text):
     predicted_emotion = labels[predicted_class.item()]
     return f"{predicted_emotion} ({max_prob_percentage:.2f}%)"
 
-@st.cache
+@st.cache_data
 def classify_emotion_openai(text):
     try:
         stream = client.chat.completions.create(
@@ -110,7 +110,7 @@ def classify_emotion_openai(text):
     except Exception as e:
         return f"An error occurred: {e}"
 
-@st.cache
+@st.cache_data
 def classify_emotion_gemini(text):
     genai.configure(api_key=API_KEY)
     generation_config = {
