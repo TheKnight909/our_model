@@ -4,5 +4,4 @@ google-cloud-translate
 google-auth
 torch
 transformers
-requests
 google.generativeai
