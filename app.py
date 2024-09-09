@@ -17,7 +17,7 @@ from google.oauth2 import service_account
 # Retrieve the API keys from environment variables
 # openai_key = os.getenv("OPENAI_API_KEY")
 # google_api_key = os.getenv("GOOGLE_API_KEY")
-gcp_credentials = os.getenv("GCP_CREDENTIALS")
+# gcp_credentials = os.getenv("GCP_CREDENTIALS")
 
 # Initialize the Google Translate API client with credentials
 def get_credentials():
@@ -37,7 +37,7 @@ def get_credentials():
 #     return creds
 
 # Initialize the Google Translate API client with credentials
-translator = translate.Client(credentials=get_credentials())
+#translator = translate.Client(credentials=get_credentials())
 
 
 # Initialize the Google Translate API client
@@ -147,14 +147,14 @@ def main():
     if st.button('Classify Emotion'):
         if user_input:
             with st.spinner('Analyzing...'):
-                openai_result = classify_emotion_openai(user_input)
+                #openai_result = classify_emotion_openai(user_input)
                 #gemini_result = classify_emotion_gemini(user_input)
-                #marbert_result = classify_emotion_bert(user_input) 
-                translated_emotion_result = analyze_text_emotion(user_input) 
+                marbert_result = classify_emotion_bert(user_input) 
+                #translated_emotion_result = analyze_text_emotion(user_input) 
             #st.write(f"**GPT Classified Emotion:** {openai_result}")
             #st.write(f"**Gemini Classified Emotion:** {gemini_result}")
             st.write(f"**Our Finetuned MarBERT Classified Emotion:** {marbert_result}") 
-            st.write(f"**English bert Classified Emotion:** {translated_emotion_result}")
+            #st.write(f"**English bert Classified Emotion:** {translated_emotion_result}")
         else:
             st.error("Please enter some text to analyze.")
 
