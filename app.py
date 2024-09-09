@@ -15,8 +15,8 @@ from google.oauth2 import service_account
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "C:/Users/lenovo/OneDrive - King Suad University/Desktop/my-project-418914-a848e32ee3d0.json"
 
 # Retrieve the API keys from environment variables
-openai_key = os.getenv("OPENAI_API_KEY")
-google_api_key = os.getenv("GOOGLE_API_KEY")
+# openai_key = os.getenv("OPENAI_API_KEY")
+# google_api_key = os.getenv("GOOGLE_API_KEY")
 gcp_credentials = os.getenv("GCP_CREDENTIALS")
 
 # Initialize the Google Translate API client with credentials
@@ -79,14 +79,14 @@ def analyze_text_emotion(text, target_language="en"):
     return f"{top_emotion} ({top_probability:.2f}%)\nThe Translated text: {translated_text}"
 
 # Retrieve the API key securely
-openai_key = st.secrets["api_keys"]["openai_key"]
-google_api_key = st.secrets["api_keys"]["google_api_key"]
+#openai_key = st.secrets["api_keys"]["openai_key"]
+#google_api_key = st.secrets["api_keys"]["google_api_key"]
 
 # Explicitly set the API key for OpenAI (not recommended for production)
-client = OpenAI(api_key=openai_key)
+#client = OpenAI(api_key=openai_key)
 
 # Gemini API key (also not recommended for production storage)
-API_KEY = google_api_key
+#API_KEY = google_api_key
 
 
 
@@ -148,11 +148,11 @@ def main():
         if user_input:
             with st.spinner('Analyzing...'):
                 openai_result = classify_emotion_openai(user_input)
-                gemini_result = classify_emotion_gemini(user_input)
-                marbert_result = classify_emotion_bert(user_input) 
+                #gemini_result = classify_emotion_gemini(user_input)
+                #marbert_result = classify_emotion_bert(user_input) 
                 translated_emotion_result = analyze_text_emotion(user_input) 
-            st.write(f"**GPT Classified Emotion:** {openai_result}")
-            st.write(f"**Gemini Classified Emotion:** {gemini_result}")
+            #st.write(f"**GPT Classified Emotion:** {openai_result}")
+            #st.write(f"**Gemini Classified Emotion:** {gemini_result}")
             st.write(f"**Our Finetuned MarBERT Classified Emotion:** {marbert_result}") 
             st.write(f"**English bert Classified Emotion:** {translated_emotion_result}")
         else:
